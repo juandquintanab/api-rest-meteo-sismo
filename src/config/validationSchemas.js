@@ -3,6 +3,13 @@
  */
 
 const weatherSchema = {
+  city: {
+    type: 'string',
+    required: true,
+    minLength: 1,
+    maxLength: 100,
+    description: 'City name'
+  },
   temperature: {
     type: 'number',
     required: true,
@@ -17,19 +24,11 @@ const weatherSchema = {
     max: 100,
     description: 'Humidity percentage'
   },
-  location: {
+  condition: {
     type: 'string',
     required: true,
-    minLength: 1,
-    maxLength: 100,
-    description: 'Location name'
-  },
-  pressure: {
-    type: 'number',
-    required: false,
-    min: 800,
-    max: 1200,
-    description: 'Atmospheric pressure in hPa'
+    enum: ['Soleado', 'Nublado', 'Lluvioso', 'Tormenta', 'Nevado', 'Neblina'],
+    description: 'Weather condition'
   }
 };
 
