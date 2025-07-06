@@ -1,4 +1,5 @@
 const express = require('express');
+const { validateSeismic } = require('../middleware/validation');
 const router = express.Router();
 
 // Almacenamiento temporal (será reemplazado por MongoDB)
@@ -13,8 +14,8 @@ router.get('/', (req, res) => {
   });
 });
 
-// POST /api/seismic
-router.post('/', (req, res) => {
+// POST /api/seismic - CON VALIDACIÓN
+router.post('/', validateSeismic, (req, res) => {
   const newSeismicData = {
     id: Date.now(),
     ...req.body,
