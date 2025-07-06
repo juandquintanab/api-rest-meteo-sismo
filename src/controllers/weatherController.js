@@ -1,3 +1,26 @@
+  getWeatherHistory(req, res) {
+    try {
+      const { city } = req.params;
+      const history = this.getLocalWeatherDataHistory(city);
+      res.json({
+        data: history,
+        count: history.length,
+        city: city
+      });
+    } catch (error) {
+      console.error('Error in getWeatherHistory:', error);
+      res.status(500).json({
+        error: 'Internal server error',
+        message: error.message
+      });
+    }
+  }
+
+  getLocalWeatherDataHistory(city) {
+    return localWeatherData.filter(data => 
+      data.city.toLowerCase() === city.toLowerCase()
+    ).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+  }
 const weatherService = require('../services/weatherService');
 
 // Almacenamiento temporal (será reemplazado por MongoDB)
