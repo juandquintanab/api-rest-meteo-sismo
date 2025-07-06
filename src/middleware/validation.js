@@ -33,6 +33,12 @@ function validateData(data, schema) {
       continue;
     }
 
+    // Verificar enum para strings
+    if (rules.type === 'string' && rules.enum && !rules.enum.includes(value)) {
+      errors.push(`${field} must be one of: ${rules.enum.join(', ')}`);
+      continue;
+    }
+
     // Verificar rango para números
     if (rules.type === 'number') {
       if (rules.min !== undefined && value < rules.min) {
