@@ -1,3 +1,5 @@
+// GET /weather/history/:city
+router.get('/history/:city', weatherController.getWeatherHistory.bind(weatherController));
 const express = require('express');
 const { validateWeather } = require('../middleware/validation');
 const weatherController = require('../controllers/weatherController');
