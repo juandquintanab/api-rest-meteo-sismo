@@ -1,0 +1,28 @@
+{
+  "name": "api-rest-meteo-sismo",
+  "version": "1.0.0",
+  "description": "API REST para datos meteorológicos y sismológicos",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/juandquintanab/api-rest-meteo-sismo.git"
+  },
+  "keywords": [
+    "api",
+    "rest",
+    "meteorologia",
+    "sismologia",
+    "nodejs",
+    "express",
+    "mongodb"
+  ],
+  "author": "Juan Quintana <juandquintanab@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/juandquintanab/api-rest-meteo-sismo/issues"
+  },
+  "homepage": "https://github.com/juandquintanab/api-rest-meteo-sismo#readme"
+}
