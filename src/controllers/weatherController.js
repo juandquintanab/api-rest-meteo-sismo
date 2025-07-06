@@ -1,3 +1,10 @@
+
+const weatherService = require('../services/weatherService');
+
+// Almacenamiento temporal (será reemplazado por MongoDB)
+let localWeatherData = [];
+
+class WeatherController {
   getWeatherHistory(req, res) {
     try {
       const { city } = req.params;
@@ -21,10 +28,6 @@
       data.city.toLowerCase() === city.toLowerCase()
     ).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
   }
-const weatherService = require('../services/weatherService');
-
-// Almacenamiento temporal (será reemplazado por MongoDB)
-let localWeatherData = [];
 
 class WeatherController {
   
