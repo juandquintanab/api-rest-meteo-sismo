@@ -4,7 +4,11 @@
   "description": "API REST para datos meteorológicos y sismológicos",
   "main": "src/index.js",
   "scripts": {
-    "test": "npm test"
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "test": "test",
+    "test:watch": "jest --watch",
+    "test:coverage":"jest --coverage"
   },
   "repository": {
     "type": "git",
