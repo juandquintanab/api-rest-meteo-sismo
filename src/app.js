@@ -1,14 +1,27 @@
 const express = require('express');
+const helmet = require('helmet');
+const cors = require('cors');
+const morgan = require('morgan');
+const weatherRoutes = require('./routes/weather');
+const seismicRoutes = require('./routes/seismic');
+const { notFound, errorHandler } = require('./middleware/errorHandler');
+const logger = require('./middleware/logger');
+
 const app = express();
 
-// Middleware básico
+// === MIDDLEWARE DE SEGURIDAD ===
+app.use(helmet()); // Headers de seguridad
+app.use(cors()); // CORS
+
+// === MIDDLEWARE DE LOGGING ===
+app.use(morgan('combined')); // Logging de HTTP
+app.use(logger); // Logging personalizado
+
+// === MIDDLEWARE DE PARSING ===
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-// Almacenamiento temporal en memoria (luego será reemplazado por MongoDB)
-let weatherData = [];
-let seismicData = [];
-
-// Ruta de información general
+// === RUTAS PRINCIPALES ===
 app.get('/', (req, res) => {
   res.json({
     name: 'API REST Meteo Sismo',
@@ -18,7 +31,6 @@ app.get('/', (req, res) => {
   });
 });
 
-// Ruta de salud
 app.get('/health', (req, res) => {
   res.json({
     status: 'OK',
@@ -27,52 +39,12 @@ app.get('/health', (req, res) => {
   });
 });
 
-// === RUTAS METEOROLÓGICAS ===
-app.get('/api/weather', (req, res) => {
-  res.json({
-    data: weatherData,
-    count: weatherData.length,
-    timestamp: new Date().toISOString()
-  });
-});
+// === RUTAS DE LA API ===
+app.use('/api/weather', weatherRoutes);
+app.use('/api/seismic', seismicRoutes);
 
-app.post('/api/weather', (req, res) => {
-  const newWeatherData = {
-    id: Date.now(), // ID temporal
-    ...req.body,
-    createdAt: new Date().toISOString()
-  };
-  
-  weatherData.push(newWeatherData);
-  
-  res.status(201).json({
-    message: 'Weather data created successfully',
-    data: newWeatherData
-  });
-});
-
-// === RUTAS SISMOLÓGICAS ===
-app.get('/api/seismic', (req, res) => {
-  res.json({
-    data: seismicData,
-    count: seismicData.length,
-    timestamp: new Date().toISOString()
-  });
-});
-
-app.post('/api/seismic', (req, res) => {
-  const newSeismicData = {
-    id: Date.now(), // ID temporal
-    ...req.body,
-    createdAt: new Date().toISOString()
-  };
-  
-  seismicData.push(newSeismicData);
-  
-  res.status(201).json({
-    message: 'Seismic data created successfully',
-    data: newSeismicData
-  });
-});
+// === MIDDLEWARE DE MANEJO DE ERRORES ===
+app.use(notFound); // Debe ir después de todas las rutas
+app.use(errorHandler); // Debe ser el último middleware
 
 module.exports = app;

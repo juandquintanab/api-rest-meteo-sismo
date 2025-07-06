@@ -1,4 +1,5 @@
 const express = require('express');
+const { validateWeather } = require('../middleware/validation');
 const router = express.Router();
 
 // Almacenamiento temporal (será reemplazado por MongoDB)
@@ -13,8 +14,8 @@ router.get('/', (req, res) => {
   });
 });
 
-// POST /api/weather
-router.post('/', (req, res) => {
+// POST /api/weather - CON VALIDACIÓN
+router.post('/', validateWeather, (req, res) => {
   const newWeatherData = {
     id: Date.now(),
     ...req.body,
