@@ -1,12 +1,11 @@
 const express = require('express');
+const weatherRoutes = require('./routes/weather');
+const seismicRoutes = require('./routes/seismic');
+
 const app = express();
 
 // Middleware básico
 app.use(express.json());
-
-// Almacenamiento temporal en memoria (luego será reemplazado por MongoDB)
-let weatherData = [];
-let seismicData = [];
 
 // Ruta de información general
 app.get('/', (req, res) => {
@@ -27,52 +26,8 @@ app.get('/health', (req, res) => {
   });
 });
 
-// === RUTAS METEOROLÓGICAS ===
-app.get('/api/weather', (req, res) => {
-  res.json({
-    data: weatherData,
-    count: weatherData.length,
-    timestamp: new Date().toISOString()
-  });
-});
-
-app.post('/api/weather', (req, res) => {
-  const newWeatherData = {
-    id: Date.now(), // ID temporal
-    ...req.body,
-    createdAt: new Date().toISOString()
-  };
-  
-  weatherData.push(newWeatherData);
-  
-  res.status(201).json({
-    message: 'Weather data created successfully',
-    data: newWeatherData
-  });
-});
-
-// === RUTAS SISMOLÓGICAS ===
-app.get('/api/seismic', (req, res) => {
-  res.json({
-    data: seismicData,
-    count: seismicData.length,
-    timestamp: new Date().toISOString()
-  });
-});
-
-app.post('/api/seismic', (req, res) => {
-  const newSeismicData = {
-    id: Date.now(), // ID temporal
-    ...req.body,
-    createdAt: new Date().toISOString()
-  };
-  
-  seismicData.push(newSeismicData);
-  
-  res.status(201).json({
-    message: 'Seismic data created successfully',
-    data: newSeismicData
-  });
-});
+// Usar las rutas
+app.use('/api/weather', weatherRoutes);
+app.use('/api/seismic', seismicRoutes);
 
 module.exports = app;
