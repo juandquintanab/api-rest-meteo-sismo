@@ -1,4 +1,52 @@
-"# API REST para Datos Meteorol�gicos y Sismol�gicos" 
+# API REST para Datos Meteorológicos y Sismológicos
+## Cómo probar la API manualmente
+
+1. **Inicia el servidor:**
+
+   ```bash
+   node src/app.js
+   ```
+
+   Por defecto, el servidor corre en `http://localhost:3000` (o el puerto configurado en tu entorno).
+
+2. **Probar endpoint POST /weather:**
+
+   ```bash
+   curl -X POST http://localhost:3000/weather \
+     -H "Content-Type: application/json" \
+     -d '{
+       "city": "Madrid",
+       "temperature": 25.5,
+       "humidity": 60,
+       "condition": "Soleado"
+     }'
+   ```
+
+   Respuesta esperada:
+   ```json
+   {
+     "message": "Weather data saved successfully",
+     "data": {
+       "id": "<ObjectId>",
+       "city": "Madrid",
+       ...
+     }
+   }
+   ```
+
+3. **Probar validación de campos requeridos:**
+
+   ```bash
+   curl -X POST http://localhost:3000/weather \
+     -H "Content-Type: application/json" \
+     -d '{ "temperature": 25.5 }'
+   ```
+   Respuesta esperada: status 400 y `{ "error": "Validation failed" }`
+
+4. **Probar otros endpoints:**
+   - Consulta la colección de rutas en el código fuente (`src/routes/`).
+
+Puedes usar también Postman, Insomnia o cualquier cliente HTTP para probar los endpoints.
 ## Estado del Proyecto
 
 ### ✅ Completado:
