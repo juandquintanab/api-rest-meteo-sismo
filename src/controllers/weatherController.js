@@ -5,6 +5,7 @@ const weatherService = require('../services/weatherService');
 let localWeatherData = [];
 
 class WeatherController {
+  // Obtener historial de una ciudad
   getWeatherHistory(req, res) {
     try {
       const { city } = req.params;
@@ -23,14 +24,14 @@ class WeatherController {
     }
   }
 
+  // Método auxiliar para historial local
   getLocalWeatherDataHistory(city) {
     return localWeatherData.filter(data => 
       data.city.toLowerCase() === city.toLowerCase()
     ).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
   }
 
-class WeatherController {
-  
+  // Obtener datos de clima por fuente
   async getWeatherData(req, res) {
     try {
       const { source } = req.params;
@@ -79,6 +80,7 @@ class WeatherController {
     }
   }
 
+  // Obtener datos locales de una ciudad
   getLocalWeatherData(city) {
     const cityData = localWeatherData.filter(data => 
       data.city.toLowerCase() === city.toLowerCase()
@@ -92,6 +94,7 @@ class WeatherController {
     return cityData.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))[0];
   }
 
+  // Guardar datos meteorológicos
   saveWeatherData(data) {
     const newData = {
       id: `weather_${Date.now()}`,
@@ -103,18 +106,12 @@ class WeatherController {
     return newData;
   }
 
-  getWeatherHistory(city) {
-    return localWeatherData.filter(data => 
-      data.city.toLowerCase() === city.toLowerCase()
-    ).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-  }
-
+  // Eliminar datos meteorológicos por ID
   deleteWeatherData(id) {
     const index = localWeatherData.findIndex(data => data.id === id);
     if (index === -1) {
       return false;
     }
-    
     localWeatherData.splice(index, 1);
     return true;
   }

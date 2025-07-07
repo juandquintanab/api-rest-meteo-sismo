@@ -1,3 +1,8 @@
+const express = require('express');
+const { validateWeather } = require('../middleware/validation');
+const weatherController = require('../controllers/weatherController');
+const router = express.Router();
+
 // DELETE /weather/:id
 router.delete('/:id', (req, res) => {
   const { id } = req.params;
@@ -20,12 +25,9 @@ router.delete('/:id', (req, res) => {
     id: id
   });
 });
+
 // GET /weather/history/:city
 router.get('/history/:city', weatherController.getWeatherHistory.bind(weatherController));
-const express = require('express');
-const { validateWeather } = require('../middleware/validation');
-const weatherController = require('../controllers/weatherController');
-const router = express.Router();
 
 // GET /weather/:source?city=[nombre_ciudad]
 router.get('/:source', weatherController.getWeatherData.bind(weatherController));

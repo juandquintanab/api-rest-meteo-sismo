@@ -1,0 +1,157 @@
+openapi: 3.0.0
+info:
+  title: API REST para Datos Meteorológicos y Sismológicos
+  version: 1.0.0
+  description: |
+    API para gestionar datos meteorológicos y sismológicos. Permite registrar, consultar y validar información sobre el clima y eventos sísmicos.
+servers:
+  - url: http://localhost:3000
+    description: Servidor local de desarrollo
+paths:
+  /weather:
+    post:
+      summary: Registrar datos meteorológicos
+      description: Crea un nuevo registro de datos meteorológicos.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - city
+                - temperature
+                - humidity
+                - condition
+              properties:
+                city:
+                  type: string
+                  example: Madrid
+                temperature:
+                  type: number
+                  example: 25.5
+                humidity:
+                  type: number
+                  example: 60
+                condition:
+                  type: string
+                  example: Soleado
+      responses:
+        '200':
+          description: Datos meteorológicos guardados correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Weather data saved successfully
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: 60c72b2f9b1e8a5f8c8e4b1a
+                      city:
+                        type: string
+                        example: Madrid
+                      temperature:
+                        type: number
+                        example: 25.5
+                      humidity:
+                        type: number
+                        example: 60
+                      condition:
+                        type: string
+                        example: Soleado
+        '400':
+          description: Error de validación
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Validation failed
+    get:
+      summary: Obtener historial de datos meteorológicos
+      description: Devuelve todos los registros meteorológicos almacenados.
+      responses:
+        '200':
+          description: Lista de datos meteorológicos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    city:
+                      type: string
+                    temperature:
+                      type: number
+                    humidity:
+                      type: number
+                    condition:
+                      type: string
+  /weather/{id}:
+    delete:
+      summary: Eliminar registro meteorológico
+      description: Elimina un registro meteorológico por su ID.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: ID del registro meteorológico
+      responses:
+        '200':
+          description: Registro eliminado correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Weather data deleted successfully
+        '404':
+          description: Registro no encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Weather data not found
+  /seismic:
+    get:
+      summary: Obtener historial de datos sísmicos
+      description: Devuelve todos los registros sísmicos almacenados.
+      responses:
+        '200':
+          description: Lista de datos sísmicos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    location:
+                      type: string
+                    magnitude:
+                      type: number
+                    depth:
+                      type: number
+                    date:
+                      type: string
+                      format: date-time

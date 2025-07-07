@@ -6,8 +6,12 @@ const weatherRoutes = require('./routes/weather');
 const seismicRoutes = require('./routes/seismic');
 const { notFound, errorHandler } = require('./middleware/errorHandler');
 const logger = require('./middleware/logger');
+const swaggerUi = require('swagger-ui-express');
+const YAML = require('yamljs');
 
+const swaggerDocument = YAML.load('./swagger.yaml');
 const app = express();
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // === MIDDLEWARE DE SEGURIDAD ===
 app.use(helmet()); // Headers de seguridad
