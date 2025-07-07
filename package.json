@@ -1,0 +1,50 @@
+{
+  "name": "api-rest-meteo-sismo",
+  "version": "1.0.0",
+  "description": "API REST para datos meteorológicos y sismológicos",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "test": "test",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/juandquintanab/api-rest-meteo-sismo.git"
+  },
+  "keywords": [
+    "api",
+    "rest",
+    "meteorologia",
+    "sismologia",
+    "nodejs",
+    "express",
+    "mongodb"
+  ],
+  "author": "Juan Quintana <juandquintanab@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/juandquintanab/api-rest-meteo-sismo/issues"
+  },
+  "homepage": "https://github.com/juandquintanab/api-rest-meteo-sismo#readme",
+  "dependencies": {
+    "axios": "^1.10.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.0.1",
+    "express": "^5.1.0",
+    "helmet": "^8.1.0",
+    "mongoose": "^8.16.1",
+    "morgan": "^1.10.0",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
+    "yamljs": "^0.3.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "jest": "^30.0.4",
+    "nodemon": "^3.1.10",
+    "supertest": "^7.1.1"
+  }
+}
