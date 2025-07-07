@@ -46,8 +46,6 @@
 4. **Probar otros endpoints:**
    - Consulta la colección de rutas en el código fuente (`src/routes/`).
 
-Puedes usar también Postman, Insomnia o cualquier cliente HTTP para probar los endpoints.
-## Estado del Proyecto
 
 ### ✅ Completado:
 - Configuración inicial del repositorio
