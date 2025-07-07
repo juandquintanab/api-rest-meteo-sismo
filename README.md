@@ -4,7 +4,7 @@
 1. **Inicia el servidor:**
 
    ```bash
-   node src/app.js
+   node src/index.js
    ```
 
    Por defecto, el servidor corre en `http://localhost:3000` .
