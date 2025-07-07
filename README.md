@@ -7,7 +7,7 @@
    node src/app.js
    ```
 
-   Por defecto, el servidor corre en `http://localhost:3000` (o el puerto configurado en tu entorno).
+   Por defecto, el servidor corre en `http://localhost:3000` .
 
 2. **Probar endpoint POST /weather:**
 
